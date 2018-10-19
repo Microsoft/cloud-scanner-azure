@@ -12,9 +12,11 @@ class ResourceExtractors:
         rg_sub_extractor: Regex for extracting the resource group and subscription id.
     """
 
-    provider_extractor = re.compile(r"(?!(?:\/[^\/]+\/[^\/]+)+\/providers)\/providers\/([^\/]+)((:?\/[^\/]+\/[^\/]+)*)$", re.IGNORECASE)
+    provider_extractor = re.compile(
+        r"(?!(?:\/[^\/]+\/[^\/]+)+\/providers)\/providers\/([^\/]+)((:?\/[^\/]+\/[^\/]+)*)$", re.IGNORECASE)
     type_extractor = re.compile(r"\/([^\/]+)\/([^\/]+)", re.IGNORECASE)
-    rg_sub_extractor = re.compile(r"\/subscriptions\/([^\/\s]+)(?:\/resourceGroups\/([^\/\s]+))?", re.IGNORECASE)
+    rg_sub_extractor = re.compile(
+        r"\/subscriptions\/([^\/\s]+)(?:\/resourceGroups\/([^\/\s]+))?", re.IGNORECASE)
 
     @classmethod
     def get_subscription(cls, resource_id):

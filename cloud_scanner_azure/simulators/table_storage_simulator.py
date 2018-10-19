@@ -14,11 +14,16 @@ class TableStorageSimulator(TableStorage):
         self._data = dict()
 
         self._resources = [
-            { "id": '/resources/type1/resource1', "accountId": "account1", "type": "Microsoft.Storage/virtualMachine", "name": "resource1", "providerType": "simulator", "location": "location1"},
-            { "id": '/resources/type1/resource2', "accountId": "account2", "type": "Microsoft.Storage/virtualMachine", "name": "resource2", "providerType": "simulator", "location": "location2"},
-            { "id": '/resources/type1/resource3', "accountId": "account2", "type": "Microsoft.Storage/virtualMachine", "name": "resource3", "providerType": "simulator", "location": "location3"},
-            { "id": '/resources/type1/resource4', "accountId": "account3", "type": "Microsoft.Storage/virtualMachine", "name": "resource4", "providerType": "simulator", "location": "location4"},
-            { "id": '/resources/type1/resource5', "accountId": "account4", "type": "Microsoft.Storage/virtualMachine", "name": "resource5", "providerType": "simulator", "location": "location5"},
+            {"id": '/resources/type1/resource1', "accountId": "account1", "type": "Microsoft.Storage/virtualMachine",
+                "name": "resource1", "providerType": "simulator", "location": "location1"},
+            {"id": '/resources/type1/resource2', "accountId": "account2", "type": "Microsoft.Storage/virtualMachine",
+                "name": "resource2", "providerType": "simulator", "location": "location2"},
+            {"id": '/resources/type1/resource3', "accountId": "account2", "type": "Microsoft.Storage/virtualMachine",
+                "name": "resource3", "providerType": "simulator", "location": "location3"},
+            {"id": '/resources/type1/resource4', "accountId": "account3", "type": "Microsoft.Storage/virtualMachine",
+                "name": "resource4", "providerType": "simulator", "location": "location4"},
+            {"id": '/resources/type1/resource5', "accountId": "account4", "type": "Microsoft.Storage/virtualMachine",
+                "name": "resource5", "providerType": "simulator", "location": "location5"},
         ]
 
     # entry is of json type
@@ -29,7 +34,8 @@ class TableStorageSimulator(TableStorage):
         :return: None
         """
         entry = resource.to_dict()
-        prepared = entry_storage.EntryOperations.prepare_entry_for_insert(entry)
+        prepared = entry_storage.EntryOperations.prepare_entry_for_insert(
+            entry)
         key = entry['PartitionKey'] + '-' + entry['RowKey']
         self._data[key] = prepared
 

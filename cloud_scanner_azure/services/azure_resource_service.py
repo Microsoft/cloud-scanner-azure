@@ -13,6 +13,7 @@ class NoFilter(ResourceFilter):
     """
     Allows for querying all resources
     """
+
     def normalized_filter(self):
         return None
 
@@ -21,6 +22,7 @@ class AzureResourceTypeFilter(ResourceFilter):
     """
     Allows for querying all resources
     """
+
     def __init__(self, resource_type):
         self._filter = "resourceType eq '" + resource_type + "'"
 
@@ -36,6 +38,7 @@ class AzureResourceService(ResourceService):
     """
     Service for querying Azure resources
     """
+
     def __init__(self, config: AzureResourceServiceConfig):
         self._client = None
         self._config = config

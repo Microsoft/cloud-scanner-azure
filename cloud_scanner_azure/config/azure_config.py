@@ -66,5 +66,3 @@ class AzureConfig(Config):
                 self.get_property('COSMOS_ACCOUNT'),
                 self.get_property('COSMOS_KEY')
             ))
-
-

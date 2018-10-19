@@ -8,6 +8,7 @@ class MockBlobStorageOutput:
     """
     Simulator of blob storage output
     """
+
     def __init__(self, name, content):
         self._name = name
         self._content = str(content)
@@ -32,6 +33,7 @@ class MockBlobStorageSimulator(StorageContainer):
     """
     Simulator of BlobStorage
     """
+
     def __init__(self):
 
         config_content = '''{
@@ -53,12 +55,18 @@ class MockBlobStorageSimulator(StorageContainer):
         }'''
 
         list_of_entries = []
-        latest = MockBlobStorageOutput('config-2018-08-29-10-20-49.json ', config_content)
-        entry1 = MockBlobStorageOutput('config-2018-08-20-12-33-48.json ', '{}')
-        entry2 = MockBlobStorageOutput('config-2018-08-21-09-41-05.json ', '{}')
-        entry3 = MockBlobStorageOutput('config-2018-08-21-09-42-12.json ', '{}')
-        entry4 = MockBlobStorageOutput('config-2018-08-22-11-41-49.json ', '{}')
-        entry5 = MockBlobStorageOutput('config-2018-08-22-11-50-38.json ', '{}')
+        latest = MockBlobStorageOutput(
+            'config-2018-08-29-10-20-49.json ', config_content)
+        entry1 = MockBlobStorageOutput(
+            'config-2018-08-20-12-33-48.json ', '{}')
+        entry2 = MockBlobStorageOutput(
+            'config-2018-08-21-09-41-05.json ', '{}')
+        entry3 = MockBlobStorageOutput(
+            'config-2018-08-21-09-42-12.json ', '{}')
+        entry4 = MockBlobStorageOutput(
+            'config-2018-08-22-11-41-49.json ', '{}')
+        entry5 = MockBlobStorageOutput(
+            'config-2018-08-22-11-50-38.json ', '{}')
 
         list_of_entries.append(latest)
         list_of_entries.append(entry1)

@@ -7,6 +7,7 @@ class AccountServiceSimulator(AccountService):
     """
     Simulator of AccoutService
     """
+
     def get_accounts(self):
         """
         Get fake accounts
