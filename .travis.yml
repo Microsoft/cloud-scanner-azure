@@ -23,7 +23,7 @@ jobs:
       script: pytest
     - stage: lint
       name: "flake8"
-      script: flake8 cloud_scanner_azure ignore=F401
+      script: flake8 --ignore=F401 cloud_scanner_azure
     - stage: deploy
       name: "Sphinx Documentation"
       script: sh deploy.sh
