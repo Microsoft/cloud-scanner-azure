@@ -1,6 +1,7 @@
 import logging
 
-from cloud_scanner.contracts import StorageContainer, register_storage_container
+from cloud_scanner.contracts import (
+    StorageContainer, register_storage_container)
 
 
 class MockBlobStorageOutput:
@@ -25,7 +26,8 @@ class MockBlobStorageOutput:
         return self._content
 
 
-@register_storage_container("simulator", lambda: MockBlobStorageSimulator())
+@register_storage_container("simulator",
+                            lambda: MockBlobStorageSimulator())
 class MockBlobStorageSimulator(StorageContainer):
     """Simulator of BlobStorage."""
 
@@ -35,14 +37,17 @@ class MockBlobStorageSimulator(StorageContainer):
             "providers":[
                 {
                     "type":"simulator",
-                    "resourceTypes": [{"typeName": "Microsoft.Compute/virtualMachines"}],
+                    "resourceTypes": [{"typeName":
+                        "Microsoft.Compute/virtualMachines"}],
                     "subscriptions": [
                         {
-                            "subscriptionId": "00000000-0000-0000-0000-000000000001", 
+                            "subscriptionId":
+                                "00000000-0000-0000-0000-000000000001",
                             "displayName": "Simulator Sub 1"
                         },
                         {
-                            "subscriptionId": "00000000-0000-0000-0000-000000000002", 
+                            "subscriptionId":
+                                "00000000-0000-0000-0000-000000000002",
                             "displayName": "Simulator Sub 2"
                         }
                     ]
@@ -80,7 +85,8 @@ class MockBlobStorageSimulator(StorageContainer):
         """
         # ensure the latest config was picked
         if config is not self._latest_entry.name:
-            logging.error("The picked config is not the latest. Returned: %s, latest: %s",
+            logging.error("The picked config is not the latest. "
+                          "Returned: %s, latest: %s",
                           config, self._latest_entry.name)
             return None
         return self._latest_entry

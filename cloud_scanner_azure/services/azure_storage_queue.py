@@ -9,8 +9,8 @@ from cloud_scanner_azure.config.azure_config import (
                         lambda queue_name:
                         AzureStorageQueue.create(queue_name))
 class AzureStorageQueue(Queue):
-    """Interface for interacting with an Azure Storage Queue
-    (through the Queue contract)"""
+    """Interface for interacting with an Azure Storage Queue (through the Queue
+    contract)"""
 
     def __init__(self, queue_name, config: AzureStorageConfig):
         """Initializes the storage queue.
