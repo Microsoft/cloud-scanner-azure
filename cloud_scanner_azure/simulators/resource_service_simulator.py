@@ -5,9 +5,7 @@ from cloud_scanner.contracts.resource_service_factory import register_resource_s
 
 @register_resource_service("simulator", lambda subscription_id: ResourceServiceSimulator())
 class ResourceServiceSimulator(ResourceService):
-    """
-    Simulator of resource service
-    """
+    """Simulator of resource service."""
     @property
     def name(self):
         """
@@ -60,8 +58,8 @@ class ResourceServiceSimulator(ResourceService):
     }]
 
     def get_resources(self, filter: ResourceFilter = None):
-        """
-        Get list of AzureResources from service
+        """Get list of AzureResources from service.
+
         :param filter: Filter object to filter resources
         :return: List of AzureResource objects
         """

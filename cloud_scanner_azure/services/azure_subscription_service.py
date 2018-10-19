@@ -7,9 +7,7 @@ from cloud_scanner_azure.config.azure_credential_config import AzureCredentialCo
 
 @register_account_service("azure", lambda: AzureSubscriptionService.create())
 class AzureSubscriptionService(AccountService):
-    """
-    Service to get available subscriptions from Azure
-    """
+    """Service to get available subscriptions from Azure."""
 
     def __init__(self, config: AzureCredentialConfig):
         self._client = None

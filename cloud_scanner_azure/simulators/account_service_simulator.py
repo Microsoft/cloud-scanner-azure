@@ -4,13 +4,11 @@ from cloud_scanner.contracts.account_service_factory import register_account_ser
 
 @register_account_service("simulator", lambda: AccountServiceSimulator())
 class AccountServiceSimulator(AccountService):
-    """
-    Simulator of AccoutService
-    """
+    """Simulator of AccoutService."""
 
     def get_accounts(self):
-        """
-        Get fake accounts
+        """Get fake accounts.
+
         :return: List of fake accounts
         [
             {

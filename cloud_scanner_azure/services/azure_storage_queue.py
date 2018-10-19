@@ -7,13 +7,12 @@ from cloud_scanner_azure.config.azure_storage_config import AzureStorageConfig
 
 @register_queue_service("azure_storage_queue", lambda queue_name: AzureStorageQueue.create(queue_name))
 class AzureStorageQueue(Queue):
-    """
-    Interface for interacting with an Azure Storage Queue (through the Queue contract)
-    """
+    """Interface for interacting with an Azure Storage Queue (through the Queue
+    contract)"""
 
     def __init__(self, queue_name, config: AzureStorageConfig):
-        """
-        Initializes the storage queue.
+        """Initializes the storage queue.
+
         :param queue_name: The name of the queue to access. If a queue with this name doesn't already exist on the storage account, the queue will be created on the first operation.
         :param config: AzureStorageConfig with a valid account name and account key
         """
@@ -25,16 +24,12 @@ class AzureStorageQueue(Queue):
         self._queue_service.decode_function = QueueMessageFormat.text_base64decode
 
     def push(self, message):
-        """
-        Pushes a new message onto the queue.
-        """
+        """Pushes a new message onto the queue."""
         self._queue_service.create_queue(self._queue_name)
         self._queue_service.put_message(self._queue_name, message)
 
     def pop(self):
-        """
-        Pops the first message from the queue and returns it.
-        """
+        """Pops the first message from the queue and returns it."""
         self._queue_service.create_queue(self._queue_name)
 
         # get_messages prevents another client from getting the message before we've had a chance to delete it. The visibility_timeout prevents the message from being seen by other clients for X seconds.
@@ -47,9 +42,7 @@ class AzureStorageQueue(Queue):
             return result
 
     def peek(self):
-        """
-        Peeks the fist message from the queue and returns it.
-        """
+        """Peeks the fist message from the queue and returns it."""
         self._queue_service.create_queue(self._queue_name)
         messages = self._queue_service.peek_messages(self._queue_name)
         for message in messages:
@@ -57,8 +50,7 @@ class AzureStorageQueue(Queue):
 
     @staticmethod
     def create(queue_name: str):
-        """
-        Helper function for creating a Azure Storage Queue from the storage_config property defined inside of AzureConfig
-        """
+        """Helper function for creating a Azure Storage Queue from the
+        storage_config property defined inside of AzureConfig."""
         azure_config = AzureConfig()
         return AzureStorageQueue(queue_name, azure_config.storage_config)

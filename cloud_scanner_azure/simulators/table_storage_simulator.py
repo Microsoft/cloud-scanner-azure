@@ -6,9 +6,7 @@ from cloud_scanner.helpers import entry_storage
 
 @register_resource_storage("simulator", lambda: TableStorageSimulator())
 class TableStorageSimulator(TableStorage):
-    """
-    Simulator of TableStorage service
-    """
+    """Simulator of TableStorage service."""
 
     def __init__(self):
         self._data = dict()
@@ -28,8 +26,8 @@ class TableStorageSimulator(TableStorage):
 
     # entry is of json type
     def write(self, resource):
-        """
-        Write resource to storage
+        """Write resource to storage.
+
         :param resource: Resource to write
         :return: None
         """
@@ -40,8 +38,8 @@ class TableStorageSimulator(TableStorage):
         self._data[key] = prepared
 
     def query(self, partition_key, row_key):
-        """
-        Get element from table storage
+        """Get element from table storage.
+
         :param partition_key: Partition key of resource
         :param row_key: Row key of resource
         :return: Resource if found
@@ -50,15 +48,15 @@ class TableStorageSimulator(TableStorage):
         return task
 
     def query_list(self):
-        """
-        Get all resources in storage
+        """Get all resources in storage.
+
         :return: List of Resource objects
         """
         return [Resource(resource) for resource in self._resources]
 
     def delete(self, partition_key, row_key):
-        """
-        Delete resource from storage
+        """Delete resource from storage.
+
         :param partition_key: Partition key of resource
         :param row_key: Row key of resource
         :return: None

@@ -5,9 +5,7 @@ from cloud_scanner.contracts.storage_container_factory import register_storage_c
 
 
 class MockBlobStorageOutput:
-    """
-    Simulator of blob storage output
-    """
+    """Simulator of blob storage output."""
 
     def __init__(self, name, content):
         self._name = name
@@ -30,9 +28,7 @@ class MockBlobStorageOutput:
 
 @register_storage_container("simulator", lambda: MockBlobStorageSimulator())
 class MockBlobStorageSimulator(StorageContainer):
-    """
-    Simulator of BlobStorage
-    """
+    """Simulator of BlobStorage."""
 
     def __init__(self):
 
@@ -103,8 +99,8 @@ class MockBlobStorageSimulator(StorageContainer):
         return self._latest_entry
 
     def upload_text(self, filename, text):
-        """
-        Fake call to upload text
+        """Fake call to upload text.
+
         :param filename: name of new config file
         :param text: text to put in config file
         :return: None

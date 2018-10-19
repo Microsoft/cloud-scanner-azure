@@ -10,18 +10,14 @@ from .azure_resource import AzureResource
 
 
 class NoFilter(ResourceFilter):
-    """
-    Allows for querying all resources
-    """
+    """Allows for querying all resources."""
 
     def normalized_filter(self):
         return None
 
 
 class AzureResourceTypeFilter(ResourceFilter):
-    """
-    Allows for querying all resources
-    """
+    """Allows for querying all resources."""
 
     def __init__(self, resource_type):
         self._filter = "resourceType eq '" + resource_type + "'"
@@ -35,9 +31,7 @@ class AzureResourceTypeFilter(ResourceFilter):
 
 @register_resource_service('azure', lambda subscription_id: AzureResourceService.create(subscription_id))
 class AzureResourceService(ResourceService):
-    """
-    Service for querying Azure resources
-    """
+    """Service for querying Azure resources."""
 
     def __init__(self, config: AzureResourceServiceConfig):
         self._client = None
@@ -52,8 +46,8 @@ class AzureResourceService(ResourceService):
         }
 
     def _get_client(self):
-        """
-        Initializes Azure ResourceManagementClient
+        """Initializes Azure ResourceManagementClient.
+
         :return: ResourceManagementClient object
         """
         if self._client is None:
@@ -64,15 +58,15 @@ class AzureResourceService(ResourceService):
 
     @property
     def name(self):
-        """
-        Name of cloud provider
+        """Name of cloud provider.
+
         :return: 'azure'
         """
         return "azure"
 
     def get_resources(self, filter: ResourceFilter = None):
-        """
-        Get resources based on filter
+        """Get resources based on filter.
+
         :param filter: Filter for resources
         :return: List of AzureResource objects as serialized from client
         """
@@ -81,8 +75,8 @@ class AzureResourceService(ResourceService):
         return [AzureResource(resource.serialize(True)) for resource in resources]
 
     def get_filter(self, payload):
-        """
-        Returns filter object based on payload
+        """Returns filter object based on payload.
+
         :param payload: Filter type (if payload is one of the resource types, returns
         AzureResourceTypeFilter. No other filter types are supported except NoFilter)
         :return: Filter object
@@ -101,8 +95,8 @@ class AzureResourceService(ResourceService):
                 "The payload " + payload + " is not a supported filter")
 
     def update_resource(self, resource: AzureResource):
-        """
-        Updates Azure resource
+        """Updates Azure resource.
+
         :param resource: AzureResource object to update
         :return:
         """
@@ -116,8 +110,8 @@ class AzureResourceService(ResourceService):
 
     # Internal Helper function to resolve API version to access Azure with
     def _resolve_api_for_resource_type(self, resource_type):
-        """
-        Gets API version for resource type
+        """Gets API version for resource type.
+
         :param resource_type: Azure resource type
         :return: API version required for client
         """
@@ -147,8 +141,8 @@ class AzureResourceService(ResourceService):
 
     @staticmethod
     def create(subscription_id):
-        """
-        Instantiate AzureResourceService for specified subscription
+        """Instantiate AzureResourceService for specified subscription.
+
         :param subscription_id: Subscription to manage with service
         :return: AzureResourceService object
         """
