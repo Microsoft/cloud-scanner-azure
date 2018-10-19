@@ -1,13 +1,15 @@
 from azure.storage.blob.blockblobservice import BlockBlobService
-
 from cloud_scanner.config import ProcessConfig
-from cloud_scanner.contracts.storage_container import StorageContainer
-from cloud_scanner.contracts.storage_container_factory import register_storage_container
+from cloud_scanner.contracts import (
+    StorageContainer, register_storage_container
+)
+
 from cloud_scanner_azure.config.azure_config import AzureConfig
 from cloud_scanner_azure.config.azure_storage_config import AzureStorageConfig
 
 
-@register_storage_container("azure_storage", lambda: AzureStorageContainer.create())
+@register_storage_container("azure_storage",
+                            lambda: AzureStorageContainer.create())
 class AzureStorageContainer(StorageContainer):
     """Azure implementation of Storage Container using BlockBlobService."""
 
@@ -18,7 +20,8 @@ class AzureStorageContainer(StorageContainer):
 
     def _get_client(self):
         """
-        :return: BlockBlobService initialized with account name and key from config
+        :return: BlockBlobService initialized with account
+        name and key from config
         """
         if self._blob_service is None:
             self._blob_service = BlockBlobService(
@@ -37,7 +40,8 @@ class AzureStorageContainer(StorageContainer):
         :param text: Text to upload
         :return: None
         """
-        self._get_client().create_blob_from_text(self._container_name, blob_name, text)
+        self._get_client().create_blob_from_text(self._container_name,
+                                                 blob_name, text)
 
     def list_blobs(self):
         """List all blobs in container.
@@ -52,7 +56,8 @@ class AzureStorageContainer(StorageContainer):
         :param file_name: Name of blob file
         :return: Text from blob file
         """
-        return self._get_client().get_blob_to_text(self._container_name, file_name)
+        return self._get_client().get_blob_to_text(self._container_name,
+                                                   file_name)
 
     @staticmethod
     def create():
@@ -61,4 +66,5 @@ class AzureStorageContainer(StorageContainer):
         :return:
         """
         return AzureStorageContainer(
-            ProcessConfig().config_container_name, AzureConfig().storage_config)
+            ProcessConfig().config_container_name,
+            AzureConfig().storage_config)

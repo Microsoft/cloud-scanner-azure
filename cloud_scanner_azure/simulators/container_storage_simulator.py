@@ -1,7 +1,6 @@
 import logging
 
-from cloud_scanner.contracts.storage_container import StorageContainer
-from cloud_scanner.contracts.storage_container_factory import register_storage_container
+from cloud_scanner.contracts import StorageContainer, register_storage_container
 
 
 class MockBlobStorageOutput:

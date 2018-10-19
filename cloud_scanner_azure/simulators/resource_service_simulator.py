@@ -1,6 +1,6 @@
 from cloud_scanner_azure.services.azure_resource import AzureResource
-from cloud_scanner.contracts.resource_service import ResourceService, ResourceFilter
-from cloud_scanner.contracts.resource_service_factory import register_resource_service
+from cloud_scanner.contracts import (
+    ResourceService, ResourceFilter, register_resource_service)
 
 
 @register_resource_service("simulator", lambda subscription_id: ResourceServiceSimulator())

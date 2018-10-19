@@ -5,7 +5,8 @@ from cloud_scanner.helpers import entry_storage
 from cloud_scanner_azure.config import AzureCosmosDbConfig, AzureConfig
 
 
-@register_resource_storage('azure_cosmos_table', lambda: AzureCosmosDb.create())
+@register_resource_storage('azure_cosmos_table',
+                           lambda: AzureCosmosDb.create())
 class AzureCosmosDb(TableStorage):
     """Azure CosmosDB provider for Table Storage."""
 
@@ -27,13 +28,14 @@ class AzureCosmosDb(TableStorage):
         try:
             self.query(entry['PartitionKey'], entry['RowKey'])
             return True
-        except:
+        except Exception:
             return False
 
     def write(self, resource):
         """Write resource to table.
 
-        :param resource: Expecting Resource object (see Common.Contracts.Resource)
+        :param resource: Expecting Resource object
+        (see Common.Contracts.Resource)
         :return: None
         """
         entry = resource.to_dict()

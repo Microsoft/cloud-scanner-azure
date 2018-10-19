@@ -2,10 +2,11 @@ import logging
 
 from azure.mgmt.resource import ResourceManagementClient
 
-from cloud_scanner.contracts.resource_service import ResourceService, ResourceFilter
-from cloud_scanner.contracts.resource_service_factory import register_resource_service
-from cloud_scanner_azure.config.azure_config import AzureConfig
-from cloud_scanner_azure.config.azure_resource_config import AzureResourceServiceConfig
+from cloud_scanner.contracts import (
+    ResourceService, ResourceFilter, register_resource_service
+)
+from cloud_scanner_azure.config import AzureConfig, AzureResourceServiceConfig
+
 from .azure_resource import AzureResource
 
 
@@ -29,7 +30,9 @@ class AzureResourceTypeFilter(ResourceFilter):
         return self._filter
 
 
-@register_resource_service('azure', lambda subscription_id: AzureResourceService.create(subscription_id))
+@register_resource_service('azure',
+                           lambda subscription_id:
+                           AzureResourceService.create(subscription_id))
 class AzureResourceService(ResourceService):
     """Service for querying Azure resources."""
 
@@ -41,8 +44,10 @@ class AzureResourceService(ResourceService):
         self._knownTypes = {
             'vm': 'Microsoft.Compute/virtualMachines',
             'storage': 'Microsoft.Storage/storageAccounts',
-            'microsoft.compute/virtualmachines': 'Microsoft.Compute/virtualMachines',
-            'microsoft.storage/storageaccounts': 'Microsoft.Storage/storageAccounts'
+            'microsoft.compute/virtualmachines':
+                'Microsoft.Compute/virtualMachines',
+            'microsoft.storage/storageaccounts':
+                'Microsoft.Storage/storageAccounts'
         }
 
     def _get_client(self):
@@ -52,7 +57,8 @@ class AzureResourceService(ResourceService):
         """
         if self._client is None:
             self._client = ResourceManagementClient(
-                self._config.credentials.service_principal, self._config.subscription_id)
+                self._config.credentials.service_principal,
+                self._config.subscription_id)
 
         return self._client
 
@@ -72,13 +78,16 @@ class AzureResourceService(ResourceService):
         """
         resources = self._get_client().resources.list(
             expand="tags", filter=filter.normalized_filter())
-        return [AzureResource(resource.serialize(True)) for resource in resources]
+        return [AzureResource(resource.serialize(True))
+                for resource in resources]
 
     def get_filter(self, payload):
         """Returns filter object based on payload.
 
-        :param payload: Filter type (if payload is one of the resource types, returns
-        AzureResourceTypeFilter. No other filter types are supported except NoFilter)
+        :param payload: Filter type
+        (if payload is one of the resource types, returns
+        AzureResourceTypeFilter. No other filter types are
+        supported except NoFilter)
         :return: Filter object
         """
         try:
@@ -123,16 +132,17 @@ class AzureResourceService(ResourceService):
         resource_provider_type = resource_type_info[1]
 
         provider = self._get_client().providers.get(resource_provider)
-        provider_details = next((t for t in provider.resource_types
-                                 if t.resource_type == resource_provider_type), None)
+        provider_details = next(
+            (t for t in provider.resource_types if
+             t.resource_type == resource_provider_type), None)
 
         if provider_details and 'api_versions' in provider_details.__dict__:
             # Remove preview API versions
             api_version = [v for v in provider_details.__dict__[
                 'api_versions'] if 'preview' not in v.lower()]
             # Get most recent remaining API
-            chosen_api = api_version[0] if api_version else provider_details.__dict__[
-                'api_versions'][0]
+            chosen_api = api_version[0] if api_version else \
+                provider_details.__dict__['api_versions'][0]
             self._resource_type_apis[resource_type] = chosen_api
 
             return chosen_api
@@ -147,4 +157,5 @@ class AzureResourceService(ResourceService):
         :return: AzureResourceService object
         """
         config = AzureConfig()
-        return AzureResourceService(config.get_resource_service_config(subscription_id))
+        return AzureResourceService(
+            config.get_resource_service_config(subscription_id))

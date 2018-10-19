@@ -1,7 +1,6 @@
 import collections
 
-from cloud_scanner.contracts.queue import Queue
-from cloud_scanner.contracts.queue_factory import register_queue_service
+from cloud_scanner.contracts import Queue, register_queue_service
 
 
 @register_queue_service("simulator", lambda queue_name: QueueSimulator(queue_name))

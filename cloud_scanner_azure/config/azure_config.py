@@ -24,7 +24,8 @@ class AzureConfig(Config):
     def credential_config(self):
         """Gets the default Azure credential config.
 
-        :return: AzureCredentialConfig populated with the AZURE_ CLIENT_ID, TENANT_ID, and CLIENT_SECRET
+        :return: AzureCredentialConfig populated with the
+        sAZURE_ CLIENT_ID, TENANT_ID, and CLIENT_SECRET
         """
 
         return AzureCredentialConfig()
@@ -33,7 +34,8 @@ class AzureConfig(Config):
         """Creates an AzureResourceServiceConfig for a subscription_id, using
         the default Azure credential configuration.
 
-        :param subscription_id: The subscription_id the resource service is to target.
+        :param subscription_id: The subscription_id the resource service is
+        to target.
         :return: AzureResourceServiceConfig
         """
 
