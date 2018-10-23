@@ -85,9 +85,10 @@ class AzureResourceService(ResourceService):
         """Returns filter object based on payload.
 
         :param payload: Filter type
-        (if payload is one of the resource types, returns
-        AzureResourceTypeFilter. No other filter types are
-        supported except NoFilter)
+            (if payload is one of the resource types, returns
+            AzureResourceTypeFilter. No other filter types are
+            supported except NoFilter)
+            
         :return: Filter object
         """
         try:
