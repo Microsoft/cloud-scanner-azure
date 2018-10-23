@@ -88,7 +88,6 @@ class AzureResourceService(ResourceService):
             (if payload is one of the resource types, returns
             AzureResourceTypeFilter. No other filter types are
             supported except NoFilter)
-            
         :return: Filter object
         """
         try:
